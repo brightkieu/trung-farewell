@@ -1,631 +1,641 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tạm biệt Trung — Arcanic AI</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@300;400;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap");
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* Neon text effect */
+      .neon-text {
+        font-family: "Orbitron", sans-serif;
+        text-align: center;
+        animation: neonGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes neonGlow {
+        from {
+          text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff,
+            0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de,
+            0 0 100px #ff00de;
         }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
+        to {
+          text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff,
+            0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de,
+            0 0 50px #ff00de;
         }
+      }
 
-        /* Neon text effect */
-        .neon-text {
-            font-family: 'Righteous', cursive;
-            text-align: center;
-            animation: neonGlow 2s ease-in-out infinite alternate;
+      /* Section Styles */
+      .section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        position: relative;
+      }
+
+      .section-1 {
+        background: radial-gradient(circle, #1a0a2e 0%, #0a0a0a 100%);
+      }
+
+      .section-2 {
+        background: radial-gradient(circle, #16213e 0%, #0a0a0a 100%);
+      }
+
+      .section-3 {
+        background: radial-gradient(circle, #0f3460 0%, #0a0a0a 100%);
+      }
+
+      .section-4 {
+        background: radial-gradient(circle, #1a0033 0%, #0a0a0a 100%);
+      }
+
+      .section-5 {
+        background: radial-gradient(circle, #2d1b3d 0%, #0a0a0a 100%);
+      }
+
+      .big-title {
+        font-size: 8rem;
+        color: #ff00de;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease-out;
+      }
+
+      .big-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-text {
+        font-size: 1.5rem;
+        max-width: 800px;
+        line-height: 2;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1s ease-out 0.3s;
+      }
+
+      .section-text.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Neon boxes */
+      .neon-box {
+        border: 3px solid #00ffff;
+        padding: 40px 60px;
+        border-radius: 15px;
+        background: rgba(0, 255, 255, 0.05);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5),
+          inset 0 0 20px rgba(0, 255, 255, 0.1);
+        opacity: 0;
+        transform: scale(0.8);
+        transition: all 1s ease-out 0.6s;
+        max-width: 900px;
+      }
+
+      .neon-box.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .neon-box:hover {
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.8),
+          inset 0 0 40px rgba(0, 255, 255, 0.2);
+        transform: scale(1.02);
+      }
+
+      /* Gallery/Slideshow Section */
+      .slideshow-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        background: rgba(0, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 40px;
+        border: 3px solid rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.4),
+          inset 0 0 30px rgba(0, 255, 255, 0.1);
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease-out;
+      }
+
+      .slideshow-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide {
+        display: none;
+        text-align: center;
+        animation: slideZoomFade 1s ease-out;
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      .slide img {
+        width: 100%;
+        max-height: 600px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 2px solid rgba(0, 255, 255, 0.5);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .slide img:hover {
+        border-color: rgba(255, 0, 222, 0.8);
+        box-shadow: 0 0 40px rgba(255, 0, 222, 0.5);
+        transform: scale(1.02);
+      }
+
+      @keyframes slideZoomFade {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
         }
-
-        @keyframes neonGlow {
-            from {
-                text-shadow: 
-                    0 0 10px #fff,
-                    0 0 20px #fff,
-                    0 0 30px #fff,
-                    0 0 40px #ff00de,
-                    0 0 70px #ff00de,
-                    0 0 80px #ff00de,
-                    0 0 100px #ff00de;
-            }
-            to {
-                text-shadow: 
-                    0 0 5px #fff,
-                    0 0 10px #fff,
-                    0 0 15px #fff,
-                    0 0 20px #ff00de,
-                    0 0 35px #ff00de,
-                    0 0 40px #ff00de,
-                    0 0 50px #ff00de;
-            }
+        to {
+          opacity: 1;
+          transform: scale(1);
         }
+      }
 
-        /* Section Styles */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative;
+      /* Navigation Arrows */
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 15px 20px;
+        color: #00ffff;
+        font-weight: bold;
+        font-size: 24px;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+        background: rgba(0, 255, 255, 0.1);
+        border: 2px solid rgba(0, 255, 255, 0.4);
+        user-select: none;
+        z-index: 10;
+      }
+
+      .next {
+        right: 10px;
+      }
+
+      .prev {
+        left: 10px;
+      }
+
+      .prev:hover,
+      .next:hover {
+        background: rgba(0, 255, 255, 0.3);
+        border-color: #00ffff;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      /* Dots */
+      .dots-container {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .dot {
+        cursor: pointer;
+        height: 12px;
+        width: 12px;
+        margin: 0 6px;
+        background: rgba(0, 255, 255, 0.3);
+        border: 2px solid rgba(0, 255, 255, 0.5);
+        border-radius: 50%;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .dot:hover {
+        background: rgba(0, 255, 255, 0.6);
+        transform: scale(1.2);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+      }
+
+      .dot.active {
+        background: #00ffff;
+        border-color: #00ffff;
+        transform: scale(1.3);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+      }
+
+      /* Message Cards */
+      .message-card {
+        background: rgba(255, 0, 222, 0.1);
+        border: 2px solid rgba(255, 0, 222, 0.3);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+
+      .message-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .message-card:hover {
+        background: rgba(255, 0, 222, 0.15);
+        border-color: rgba(255, 0, 222, 0.6);
+        box-shadow: 0 0 30px rgba(255, 0, 222, 0.4);
+        transform: translateY(-5px);
+      }
+
+      .message-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+      }
+
+      .message-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ff00de;
+        margin-bottom: 15px;
+        font-family: "Orbitron", sans-serif;
+      }
+
+      .message-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        opacity: 0.9;
+      }
+
+      /* Scroll indicator */
+      .scroll-hint {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        animation: scrollBounce 2s infinite;
+        z-index: 100;
+        color: #00ffff;
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+      }
+
+      @keyframes scrollBounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
         }
-
-        .section-1 {
-            background: radial-gradient(circle, #1a0a2e 0%, #0a0a0a 100%);
+        40% {
+          transform: translateX(-50%) translateY(-20px);
         }
-
-        .section-2 {
-            background: radial-gradient(circle, #16213e 0%, #0a0a0a 100%);
+        60% {
+          transform: translateX(-50%) translateY(-10px);
         }
+      }
 
-        .section-3 {
-            background: radial-gradient(circle, #0f3460 0%, #0a0a0a 100%);
-        }
-
-        .section-4 {
-            background: radial-gradient(circle, #1a0033 0%, #0a0a0a 100%);
-        }
-
-        .section-5 {
-            background: radial-gradient(circle, #2d1b3d 0%, #0a0a0a 100%);
-        }
-
+      /* Responsive */
+      @media (max-width: 768px) {
         .big-title {
-            font-size: 8rem;
-            color: #ff00de;
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-        }
-
-        .big-title.visible {
-            opacity: 1;
-            transform: translateY(0);
+          font-size: 4rem;
         }
 
         .section-text {
-            font-size: 1.5rem;
-            max-width: 800px;
-            line-height: 2;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out 0.3s;
+          font-size: 1.2rem;
         }
 
-        .section-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Neon boxes */
         .neon-box {
-            border: 3px solid #00ffff;
-            padding: 40px 60px;
-            border-radius: 15px;
-            background: rgba(0, 255, 255, 0.05);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.5),
-                inset 0 0 20px rgba(0, 255, 255, 0.1);
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 1s ease-out 0.6s;
-            max-width: 900px;
+          padding: 30px;
         }
 
-        .neon-box.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .neon-box:hover {
-            box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.8),
-                inset 0 0 40px rgba(0, 255, 255, 0.2);
-            transform: scale(1.02);
-        }
-
-        /* Gallery/Slideshow Section */
         .slideshow-container {
-            max-width: 900px;
-            margin: 40px auto;
-            position: relative;
-            background: rgba(0, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 40px;
-            border: 3px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.4),
-                inset 0 0 30px rgba(0, 255, 255, 0.1);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-        }
-
-        .slideshow-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide {
-            display: none;
-            text-align: center;
-            animation: slideZoomFade 1s ease-out;
-        }
-
-        .slide.active {
-            display: block;
+          padding: 20px;
         }
 
         .slide img {
-            width: 100%;
-            max-height: 600px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
+          max-height: 400px;
         }
 
-        .slide img:hover {
-            border-color: rgba(255, 0, 222, 0.8);
-            box-shadow: 0 0 40px rgba(255, 0, 222, 0.5);
-            transform: scale(1.02);
-        }
-
-        @keyframes slideZoomFade {
-            from { 
-                opacity: 0; 
-                transform: scale(0.95);
-            }
-            to { 
-                opacity: 1; 
-                transform: scale(1);
-            }
-        }
-
-        /* Navigation Arrows */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 15px 20px;
-            color: #00ffff;
-            font-weight: bold;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            border-radius: 10px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid rgba(0, 255, 255, 0.4);
-            user-select: none;
-            z-index: 10;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .prev:hover, .next:hover {
-            background: rgba(0, 255, 255, 0.3);
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        /* Dots */
-        .dots-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        .dot {
-            cursor: pointer;
-            height: 12px;
-            width: 12px;
-            margin: 0 6px;
-            background: rgba(0, 255, 255, 0.3);
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            border-radius: 50%;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .dot:hover {
-            background: rgba(0, 255, 255, 0.6);
-            transform: scale(1.2);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
-        }
-
-        .dot.active {
-            background: #00ffff;
-            border-color: #00ffff;
-            transform: scale(1.3);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-        }
-
-        /* Message Cards */
         .message-card {
-            background: rgba(255, 0, 222, 0.1);
-            border: 2px solid rgba(255, 0, 222, 0.3);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+          padding: 20px;
         }
-
-        .message-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .message-card:hover {
-            background: rgba(255, 0, 222, 0.15);
-            border-color: rgba(255, 0, 222, 0.6);
-            box-shadow: 0 0 30px rgba(255, 0, 222, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .message-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .message-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #ff00de;
-            margin-bottom: 15px;
-            font-family: 'Righteous', cursive;
-        }
-
-        .message-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.9;
-        }
-
-        /* Scroll indicator */
-        .scroll-hint {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            animation: scrollBounce 2s infinite;
-            z-index: 100;
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-        }
-
-        @keyframes scrollBounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-20px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .big-title {
-                font-size: 4rem;
-            }
-
-            .section-text {
-                font-size: 1.2rem;
-            }
-
-            .neon-box {
-                padding: 30px;
-            }
-
-            .slideshow-container {
-                padding: 20px;
-            }
-
-            .slide img {
-                max-height: 400px;
-            }
-
-            .message-card {
-                padding: 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="scroll-hint">↓</div>
 
     <!-- Section 1: Hero -->
     <section class="section section-1">
-        <h1 class="big-title neon-text">GOODBYE<br/>TRUNG! 👋</h1>
-        <p class="section-text">
-            A new chapter is waiting for you...
-            <br/>
-            An exciting journey begins here!
-        </p>
+      <h1 class="big-title neon-text">Hey<br />TRUNG! 👋</h1>
+      <p class="section-text">
+        Hey Trung! It's your last day at Arcanic AI.
+        <br />
+        We will very miss you!
+      </p>
     </section>
 
     <!-- Section 2: Journey Message -->
     <section class="section section-2">
-        <div class="neon-box">
-            <h2 class="neon-text" style="font-size: 3rem; margin-bottom: 30px;">🌟 HÀNH TRÌNH</h2>
-            <p class="section-text">
-                Dù chỉ là một khoảng thời gian ngắn ngủi, nhưng dấu ấn của bạn sẽ mãi còn trong 
-                trái tim mỗi người. Từ những ngày đầu bỡ ngỡ đến khi trở thành một thành viên quan trọng,
-                Trung đã để lại dấu ấn sâu đậm trong mỗi dự án, mỗi khoảnh khắc.
-                <br/><br/>
-                Cảm ơn vì tất cả những nỗ lực và đóng góp!
-            </p>
-        </div>
+      <div class="neon-box">
+        <h2 class="neon-text" style="font-size: 3rem; margin-bottom: 30px">
+          🌟 When you're here
+        </h2>
+        <p class="section-text">
+          Mọi người sẽ mãi nhớ về Trung, một người anh em vô cùng tình cảm và dễ thương. Nhớ những quả nem nắm Trung mang từ quê lên. Nhớ những lần làm dự án cùng nhau dở khóc dở cười. Nhớ những lần Trung lần lượt chúc mừng sinh nhật ae trong công ty =]]
+          <br /><br />
+          Cảm ơn vì tất cả những nỗ lực và đóng góp!
+        </p>
+      </div>
     </section>
 
     <!-- Section 3: Photo Gallery -->
     <section class="section section-3">
-        <h2 class="big-title neon-text" style="font-size: 4rem;">KỶ NIỆM 📸</h2>
-        <p class="section-text" style="margin-bottom: 40px;">
-            Những khoảnh khắc đẹp của chúng ta tại Arcanic AI
-        </p>
+      <h2 class="big-title neon-text" style="font-size: 4rem">KỶ NIỆM 📸</h2>
+      <p class="section-text" style="margin-bottom: 40px">
+        Những khoảnh khắc đẹp của chúng ta tại Arcanic AI
+      </p>
 
-        <div class="slideshow-container">
-            <div class="slide active">
-                <img src="Trung/2025-10-30 19.21.31.jpg" alt="Kỷ niệm 1">
-            </div>
-            <div class="slide">
-                <img src="Trung/2025-10-30 19.21.41.jpg" alt="Kỷ niệm 2">
-            </div>
-            <div class="slide">
-                <img src="Trung/2025-10-30 19.21.47.jpg" alt="Kỷ niệm 3">
-            </div>
-            <div class="slide">
-                <img src="Trung/2025-10-30 19.21.51.jpg" alt="Kỷ niệm 4">
-            </div>
-            <div class="slide">
-                <img src="Trung/2025-10-30 19.21.55.jpg" alt="Kỷ niệm 5">
-            </div>
-            <div class="slide">
-                <img src="Trung/20250116_171126 (1).jpg" alt="Kỷ niệm 6">
-            </div>
-            <div class="slide">
-                <img src="Trung/FB_IMG_1737561040245.jpg" alt="Kỷ niệm 7">
-            </div>
-            <div class="slide">
-                <img src="Trung/2.png" alt="Kỷ niệm 8">
-            </div>
-            <div class="slide">
-                <img src="Trung/20251009_154637.jpg" alt="Kỷ niệm 9">
-            </div>
-
-            <a class="prev" onclick="changeSlide(-1)">❮</a>
-            <a class="next" onclick="changeSlide(1)">❯</a>
-
-            <div class="dots-container">
-                <span class="dot active" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(4)"></span>
-                <span class="dot" onclick="currentSlide(5)"></span>
-                <span class="dot" onclick="currentSlide(6)"></span>
-                <span class="dot" onclick="currentSlide(7)"></span>
-                <span class="dot" onclick="currentSlide(8)"></span>
-                <span class="dot" onclick="currentSlide(9)"></span>
-            </div>
+      <div class="slideshow-container">
+        <div class="slide active">
+          <img src="Trung/2025-10-30 19.21.31.jpg" alt="Kỷ niệm 1" />
         </div>
+        <div class="slide">
+          <img src="Trung/2025-10-30 19.21.41.jpg" alt="Kỷ niệm 2" />
+        </div>
+        <div class="slide">
+          <img src="Trung/2025-10-30 19.21.47.jpg" alt="Kỷ niệm 3" />
+        </div>
+        <div class="slide">
+          <img src="Trung/2025-10-30 19.21.51.jpg" alt="Kỷ niệm 4" />
+        </div>
+        <div class="slide">
+          <img src="Trung/2025-10-30 19.21.55.jpg" alt="Kỷ niệm 5" />
+        </div>
+        <div class="slide">
+          <img src="Trung/20250116_171126 (1).jpg" alt="Kỷ niệm 6" />
+        </div>
+        <div class="slide">
+          <img src="Trung/FB_IMG_1737561040245.jpg" alt="Kỷ niệm 7" />
+        </div>
+        <div class="slide">
+          <img src="Trung/2.png" alt="Kỷ niệm 8" />
+        </div>
+        <div class="slide">
+          <img src="Trung/20251009_154637.jpg" alt="Kỷ niệm 9" />
+        </div>
+
+        <a class="prev" onclick="changeSlide(-1)">❮</a>
+        <a class="next" onclick="changeSlide(1)">❯</a>
+
+        <div class="dots-container">
+          <span class="dot active" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+          <span class="dot" onclick="currentSlide(4)"></span>
+          <span class="dot" onclick="currentSlide(5)"></span>
+          <span class="dot" onclick="currentSlide(6)"></span>
+          <span class="dot" onclick="currentSlide(7)"></span>
+          <span class="dot" onclick="currentSlide(8)"></span>
+          <span class="dot" onclick="currentSlide(9)"></span>
+        </div>
+      </div>
     </section>
 
     <!-- Section 4: Messages -->
     <section class="section section-4">
-        <h2 class="big-title neon-text" style="font-size: 4rem;">LỜI NHẮN 💌</h2>
-        <p class="section-text" style="margin-bottom: 40px;">
-            Những lời chúc tốt đẹp từ mọi người
-        </p>
+      <h2 class="big-title neon-text" style="font-size: 4rem">LỜI NHẮN 💌</h2>
+      <p class="section-text" style="margin-bottom: 40px">
+        Những lời chúc tốt đẹp từ mọi người
+      </p>
 
-        <div style="max-width: 900px; width: 100%;">
-            <div class="message-card">
-                <div class="message-icon">🎉</div>
-                <div class="message-title">Anh Quang</div>
-                <div class="message-text">
-                    Chúc em nhiều sức khỏe, luôn vui vẻ và thành công trong sự nghiệp. Sớm lấy vợ cho anh về Nam Định ăn cỗ =))
-                </div>
-            </div>
-
-            <div class="message-card">
-                <div class="message-icon">🌟</div>
-                <div class="message-title">Xuân Đạt</div>
-                <div class="message-text">
-                    Chúc anh ngày càng mạnh khỏe, thành công và luôn giữ được nhiệt huyết với nghề.
-                    Em chân thành cảm ơn anh vì những chỉ dẫn và sự tận tâm trong suốt thời gian qua.
-                    Tạm biệt anh, chúc anh luôn gặp nhiều điều tốt đẹp trong cuộc sống! 🤍
-                </div>
-            </div>
-
-            <div class="message-card">
-                <div class="message-icon">💫</div>
-                <div class="message-title">Chị Hân</div>
-                <div class="message-text">
-                    Chúc Trung thành công và hạnh phúc 🤍
-                </div>
-            </div>
-
-            <div class="message-card">
-                <div class="message-icon">😄</div>
-                <div class="message-title">Anh Tạ</div>
-                <div class="message-text">
-                    Chúc Trung bắt được nhiều ny
-                </div>
-            </div>
-
-            <div class="message-card">
-                <div class="message-icon">😢</div>
-                <div class="message-title">Anh Minh</div>
-                <div class="message-text">
-                    Thế là không còn ai để trêu nữa :v<br/>
-                    Làm việc cùng em thời gian qua thật sự rất vui. Mọi người sẽ nhớ em nhiều đó!<br/>
-                    Dù đi đâu hay làm gì, nhớ giữ vững năng lượng ấy và tiếp tục tỏa sáng nha.
-                </div>
-            </div>
-
-            <div class="message-card">
-                <div class="message-icon">🍂</div>
-                <div class="message-title">Chị Linh</div>
-                <div class="message-text">
-                    Hi Trung,<br/>
-                    Vậy là đã ngót nghét gần 3 mùa thu và 2 cái YEP Trung gắn bó với Arcanic rồi. Đã cùng nhau đi qua thật nhiều dự án, nhiều kỷ niệm, và chứng kiến sự trưởng thành của nhau. Thật buồn vì phải tạm chia tay giữa những ngày thu Hà Nội đẹp nhất 2025 này :(<br/><br/>
-                    Chị vẫn nhớ hôm phỏng vấn Trung là một buổi tối qua Google Meet. Hôm ấy cũng là lần đầu chị tham gia phỏng vấn ai đó. Lần đó thấy em là điểm sáng nhất giữa chục bạn ứng viên (và Hà Bùi cute nữa, phỏng vấn Hà cũng nhiều kỷ niệm =)) ).<br/><br/>
-                    Chị rất vui khi Trung đã tìm được bến đỗ mới để tiếp tục phát triển sự nghiệp. Chị chúc Trung dù ở bất cứ nơi đâu sẽ luôn giữ được lửa đam mê với nghề (ngành này thật sự cần những người như em, kẻo có thì sẽ lỡ mất một nhân tài đó, hihi). Và quan trọng là thật nhiều sức khỏe và hạnh phúc nhé! Hẹn gặp lại nhau ở một điểm đẹp nào đó trong tương lai nha! ♡
-                </div>
-            </div>
+      <div style="max-width: 900px; width: 100%">
+        <div class="message-card">
+          <div class="message-icon">🎉</div>
+          <div class="message-title">Anh Quang</div>
+          <div class="message-text">
+            Chúc em nhiều sức khỏe, luôn vui vẻ và thành công trong sự nghiệp.
+            Sớm lấy vợ cho anh về Nam Định ăn cỗ =))
+          </div>
         </div>
+
+        <div class="message-card">
+          <div class="message-icon">🌟</div>
+          <div class="message-title">Xuân Đạt</div>
+          <div class="message-text">
+            Chúc anh ngày càng mạnh khỏe, thành công và luôn giữ được nhiệt
+            huyết với nghề. Em chân thành cảm ơn anh vì những chỉ dẫn và sự tận
+            tâm trong suốt thời gian qua. Tạm biệt anh, chúc anh luôn gặp nhiều
+            điều tốt đẹp trong cuộc sống! 🤍
+          </div>
+        </div>
+
+        <div class="message-card">
+          <div class="message-icon">💫</div>
+          <div class="message-title">Chị Hân</div>
+          <div class="message-text">Chúc Trung thành công và hạnh phúc 🤍</div>
+        </div>
+
+        <div class="message-card">
+          <div class="message-icon">😄</div>
+          <div class="message-title">Anh Tạ</div>
+          <div class="message-text">Chúc Trung bắt được nhiều ny</div>
+        </div>
+
+        <div class="message-card">
+          <div class="message-icon">😢</div>
+          <div class="message-title">Anh Minh</div>
+          <div class="message-text">
+            Thế là không còn ai để trêu nữa :v<br />
+            Làm việc cùng em thời gian qua thật sự rất vui. Mọi người sẽ nhớ em
+            nhiều đó!<br />
+            Dù đi đâu hay làm gì, nhớ giữ vững năng lượng ấy và tiếp tục tỏa
+            sáng nha.
+          </div>
+        </div>
+
+        <div class="message-card">
+          <div class="message-icon">🍂</div>
+          <div class="message-title">Chị Linh</div>
+          <div class="message-text">
+            Hi Trung,<br />
+            Vậy là đã ngót nghét gần 3 mùa thu và 2 cái YEP Trung gắn bó với
+            Arcanic rồi. Đã cùng nhau đi qua thật nhiều dự án, nhiều kỷ niệm, và
+            chứng kiến sự trưởng thành của nhau. Thật buồn vì phải tạm chia tay
+            giữa những ngày thu Hà Nội đẹp nhất 2025 này :(<br /><br />
+            Chị vẫn nhớ hôm phỏng vấn Trung là một buổi tối qua Google Meet. Hôm
+            ấy cũng là lần đầu chị tham gia phỏng vấn ai đó. Lần đó thấy em là
+            điểm sáng nhất giữa chục bạn ứng viên (và Hà Bùi cute nữa, phỏng vấn
+            Hà cũng nhiều kỷ niệm =)) ).<br /><br />
+            Chị rất vui khi Trung đã tìm được bến đỗ mới để tiếp tục phát triển
+            sự nghiệp. Chị chúc Trung dù ở bất cứ nơi đâu sẽ luôn giữ được lửa
+            đam mê với nghề (ngành này thật sự cần những người như em, kẻo có
+            thì sẽ lỡ mất một nhân tài đó, hihi). Và quan trọng là thật nhiều
+            sức khỏe và hạnh phúc nhé! Hẹn gặp lại nhau ở một điểm đẹp nào đó
+            trong tương lai nha! ♡
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Section 5: Farewell -->
     <section class="section section-5">
-        <h2 class="big-title neon-text" style="font-size: 5rem;">FAREWELL 🌈</h2>
-        <div class="neon-box">
-            <p class="section-text">
-                Dù con đường phía trước có thể đầy thách thức, 
-                chúng tôi tin rằng với tài năng và sự nỗ lực của mình, 
-                bạn sẽ vượt qua tất cả. 
-                <br/><br/>
-                Hãy luôn theo đuổi đam mê và không ngừng học hỏi. 
-                Arcanic AI luôn ủng hộ bạn từ phía sau!
-                <br/><br/>
-                <strong style="color: #ff00de; font-size: 2rem; font-family: 'Righteous', cursive;">
-                    💜 Từ toàn thể đội ngũ Arcanic AI 💜
-                </strong>
-            </p>
-        </div>
+      <h2 class="big-title neon-text" style="font-size: 5rem">FAREWELL 🌈</h2>
+      <div class="neon-box">
+        <p class="section-text">Tạm chia tay thôi, sớm ngày gặp lại nhé.</p>
+        <strong
+          style="
+            color: #ff00de;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+          "
+        >
+          💜 Từ toàn thể đội ngũ Arcanic AI 💜
+        </strong>
+      </div>
     </section>
 
     <script>
-        // Slideshow functionality
-        let slideIndex = 1;
-        let autoplayInterval;
+      // Slideshow functionality
+      let slideIndex = 1;
+      let autoplayInterval;
 
-        showSlide(slideIndex);
-        startAutoplay();
+      showSlide(slideIndex);
+      startAutoplay();
 
-        function changeSlide(n) {
-            showSlide(slideIndex += n);
+      function changeSlide(n) {
+        showSlide((slideIndex += n));
+      }
+
+      function currentSlide(n) {
+        showSlide((slideIndex = n));
+      }
+
+      function showSlide(n) {
+        let slides = document.getElementsByClassName("slide");
+        let dots = document.getElementsByClassName("dot");
+
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
         }
 
-        function currentSlide(n) {
-            showSlide(slideIndex = n);
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].classList.remove("active");
         }
 
-        function showSlide(n) {
-            let slides = document.getElementsByClassName("slide");
-            let dots = document.getElementsByClassName("dot");
-            
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove("active");
-            }
-            
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.remove("active");
-            }
-            
-            slides[slideIndex - 1].classList.add("active");
-            dots[slideIndex - 1].classList.add("active");
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.remove("active");
         }
 
-        function startAutoplay() {
-            autoplayInterval = setInterval(() => {
-                changeSlide(1);
-            }, 5000);
-        }
+        slides[slideIndex - 1].classList.add("active");
+        dots[slideIndex - 1].classList.add("active");
+      }
 
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px'
-        };
+      function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+          changeSlide(1);
+        }, 5000);
+      }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: "0px",
+      };
 
-        // Observe all animated elements
-        document.querySelectorAll('.big-title, .section-text, .neon-box, .slideshow-container, .message-card').forEach(el => {
-            observer.observe(el);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document
+        .querySelectorAll(
+          ".big-title, .section-text, .neon-box, .slideshow-container, .message-card"
+        )
+        .forEach((el) => {
+          observer.observe(el);
         });
 
-        // Hide scroll hint when scrolling
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            document.querySelector('.scroll-hint').style.opacity = '0';
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                if (window.scrollY < window.innerHeight * 0.5) {
-                    document.querySelector('.scroll-hint').style.opacity = '1';
-                }
-            }, 1000);
+      // Hide scroll hint when scrolling
+      let scrollTimeout;
+      window.addEventListener("scroll", () => {
+        document.querySelector(".scroll-hint").style.opacity = "0";
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          if (window.scrollY < window.innerHeight * 0.5) {
+            document.querySelector(".scroll-hint").style.opacity = "1";
+          }
+        }, 1000);
+      });
+
+      // Keyboard navigation for slideshow
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          changeSlide(-1);
+        } else if (e.key === "ArrowRight") {
+          changeSlide(1);
+        }
+      });
+
+      // Touch swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      const slideshowContainer = document.querySelector(".slideshow-container");
+      if (slideshowContainer) {
+        slideshowContainer.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
         });
 
-        // Keyboard navigation for slideshow
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                changeSlide(-1);
-            } else if (e.key === 'ArrowRight') {
-                changeSlide(1);
-            }
+        slideshowContainer.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
         });
+      }
 
-        // Touch swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        const slideshowContainer = document.querySelector('.slideshow-container');
-        if (slideshowContainer) {
-            slideshowContainer.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-
-            slideshowContainer.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          changeSlide(1);
         }
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) {
-                changeSlide(1);
-            }
-            if (touchEndX > touchStartX + 50) {
-                changeSlide(-1);
-            }
+        if (touchEndX > touchStartX + 50) {
+          changeSlide(-1);
         }
+      }
     </script>
-</body>
+  </body>
 </html>
