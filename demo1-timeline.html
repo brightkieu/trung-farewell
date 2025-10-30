@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Timeline - Tạm biệt Trung</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInScale 1s ease-out;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, #1e3c72, #2a1c4e);
+        }
+
+        .timeline-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 80px;
+            background: linear-gradient(45deg, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #a78bfa, #ec4899);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item.left .timeline-content {
+            float: left;
+            width: 45%;
+            text-align: right;
+            padding-right: 40px;
+        }
+
+        .timeline-item.right .timeline-content {
+            float: right;
+            width: 45%;
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(167, 139, 250, 0.3);
+        }
+
+        .timeline-date {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title-item {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            border-radius: 50%;
+            border: 4px solid #1e3c72;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(167, 139, 250, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(167, 139, 250, 1);
+            }
+        }
+
+        .timeline-item::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item.left .timeline-content,
+            .timeline-item.right .timeline-content {
+                float: none;
+                width: 100%;
+                text-align: left;
+                padding-left: 80px;
+                padding-right: 20px;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>🎬 Hành Trình Của Trung</h1>
+        <p>Những mốc son đáng nhớ tại Arcanic AI</p>
+    </section>
+
+    <section class="timeline-section">
+        <h2 class="timeline-title">Timeline Kỷ Niệm 📅</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Tháng 10, 2023</div>
+                    <div class="timeline-title-item">🎯 Bắt đầu hành trình</div>
+                    <div class="timeline-description">
+                        Ngày đầu tiên Trung gia nhập Arcanic AI. Một khởi đầu mới đầy hứa hẹn!
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Tháng 1, 2024</div>
+                    <div class="timeline-title-item">🚀 Dự án đầu tiên</div>
+                    <div class="timeline-description">
+                        Hoàn thành xuất sắc dự án đầu tiên, thể hiện khả năng học hỏi nhanh chóng và tinh thần làm việc nhiệt huyết.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Tháng 5, 2024</div>
+                    <div class="timeline-title-item">🌟 Thăng tiến</div>
+                    <div class="timeline-description">
+                        Được ghi nhận vì những đóng góp xuất sắc và thăng tiến trong team. Một bước ngoặt quan trọng!
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Tháng 9, 2024</div>
+                    <div class="timeline-title-item">🎉 Team Building</div>
+                    <div class="timeline-description">
+                        Những khoảnh khắc vui vẻ trong chuyến team building. Kỷ niệm đẹp với mọi người!
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Tháng 1, 2025</div>
+                    <div class="timeline-title-item">👋 Chương mới</div>
+                    <div class="timeline-description">
+                        Tạm biệt Arcanic AI để bước sang một chương mới trong sự nghiệp. Chúc Trung thành công rực rỡ!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
